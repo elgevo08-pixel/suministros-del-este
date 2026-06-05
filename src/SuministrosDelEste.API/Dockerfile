@@ -28,7 +28,7 @@ WORKDIR /app
 
 # Directorio persistente para la BD SQLite (montar volumen en Railway)
 RUN mkdir -p /app/data && chmod 777 /app/data
-VOLUME ["/app/data"]
+
 
 EXPOSE 80
 EXPOSE 443
