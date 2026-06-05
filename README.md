@@ -1,4 +1,4 @@
- # 🏗️ Suministros del Este — ERP
+# 🏗️ Suministros del Este — ERP
 
 [![CI](https://github.com/TU_USUARIO/suministros-del-este/actions/workflows/ci.yml/badge.svg)](https://github.com/TU_USUARIO/suministros-del-este/actions/workflows/ci.yml)
 [![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/suministros-del-este)
