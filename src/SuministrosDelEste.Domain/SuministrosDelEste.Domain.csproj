@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>SuministrosDelEste.Domain</RootNamespace>
+    <!-- El Dominio es el núcleo puro — CERO dependencias externas o de infraestructura -->
+  </PropertyGroup>
+
+</Project>

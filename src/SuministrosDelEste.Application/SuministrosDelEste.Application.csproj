@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>SuministrosDelEste.Application</RootNamespace>
+    <!-- La capa de Aplicación depende SOLO del Dominio — nunca de Infraestructura -->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SuministrosDelEste.Domain\SuministrosDelEste.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

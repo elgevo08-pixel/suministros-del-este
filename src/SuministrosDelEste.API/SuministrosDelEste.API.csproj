@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>SuministrosDelEste.API</RootNamespace>
+    <!-- La API es solo el Adaptador Primario — nunca contiene lógica de negocio -->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- La API conoce la Aplicación (para los puertos) y la Infraestructura (para el DI) -->
+    <ProjectReference Include="..\SuministrosDelEste.Application\SuministrosDelEste.Application.csproj" />
+    <ProjectReference Include="..\SuministrosDelEste.Infrastructure\SuministrosDelEste.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

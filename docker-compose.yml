@@ -1,0 +1,83 @@
+version: '3.9'
+
+# ============================================================
+# docker-compose — Suministros del Este ERP
+# Levanta: SQL Server 2022 + Keycloak (IdP) + API .NET 8
+#
+# Uso: docker-compose up -d
+# API disponible en: http://localhost:5000/swagger
+# Keycloak Admin:    http://localhost:8080  (admin/admin123)
+# ============================================================
+
+services:
+
+  # ------------------------------------------------------------
+  # SQL Server 2022
+  # ------------------------------------------------------------
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: suministros-sqlserver
+    environment:
+      SA_PASSWORD: "SuministrosDb2024!"
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Developer"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'SuministrosDb2024!' -Q 'SELECT 1' -No"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+      start_period: 30s
+
+  # ------------------------------------------------------------
+  # Keycloak 24 — Identity Provider OAuth2 / JWT
+  # Configurar manualmente el realm "suministros" y client "suministros-api"
+  # con rol "inventario-admin" tras el primer arranque.
+  # ------------------------------------------------------------
+  keycloak:
+    image: quay.io/keycloak/keycloak:24.0
+    container_name: suministros-keycloak
+    command: start-dev
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin123
+      KC_DB: dev-mem
+      KC_HOSTNAME_STRICT: "false"
+      KC_HTTP_ENABLED: "true"
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/health/ready || exit 1"]
+      interval: 20s
+      timeout: 10s
+      retries: 10
+      start_period: 40s
+
+  # ------------------------------------------------------------
+  # SuministrosDelEste API — .NET 8 Web API
+  # ------------------------------------------------------------
+  api:
+    build:
+      context: .
+      dockerfile: src/SuministrosDelEste.API/Dockerfile
+    container_name: suministros-api
+    ports:
+      - "5000:80"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__DefaultConnection: "Server=sqlserver;Database=SuministrosDelEsteDB;User Id=sa;Password=SuministrosDb2024!;TrustServerCertificate=True;"
+      Jwt__Authority: "http://keycloak:8080/realms/suministros"
+      Jwt__Audience: "suministros-api"
+      Jwt__RequireHttpsMetadata: "false"
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+      keycloak:
+        condition: service_started
+
+volumes:
+  sqlserver_data:
+    name: suministros_sqlserver_data
