@@ -59,6 +59,10 @@ if (isDemoMode || app.Environment.IsDevelopment())
     db.Database.Migrate();
 }
 
+// Sirve frontend/dashboard-v2.html como página principal (wwwroot/index.html)
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
 app.UseSwagger();
 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Suministros del Este v1"));
 
