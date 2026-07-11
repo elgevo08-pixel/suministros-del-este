@@ -1,5 +1,7 @@
 using ArchUnitNET.Domain;
 using ArchUnitNET.Loader;
+using Xunit;
+using ArchUnitNET.xUnit;
 using SuministrosDelEste.Application.UseCases.RegistrarMaterial;
 using SuministrosDelEste.Domain.Aggregates.Material;
 using SuministrosDelEste.Domain.Shared;
