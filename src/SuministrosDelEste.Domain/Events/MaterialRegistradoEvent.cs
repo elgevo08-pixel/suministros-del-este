@@ -9,6 +9,9 @@ public sealed record MaterialRegistradoEvent(
     decimal PrecioUnitario
 ) : IDomainEvent
 {
-    public Guid EventId { get; } = Guid.NewGuid();
-    public DateTime OcurridoEn { get; } = DateTime.UtcNow;
+    // init (no solo get) permite que el patrón Outbox reconstruya el evento exacto desde su
+    // JSON persistido (OutboxMessage.Deserializar) preservando el EventId y la fecha originales;
+    // para toda construcción normal via new(...), el valor por defecto sigue aplicando igual.
+    public Guid EventId { get; init; } = Guid.NewGuid();
+    public DateTime OcurridoEn { get; init; } = DateTime.UtcNow;
 }

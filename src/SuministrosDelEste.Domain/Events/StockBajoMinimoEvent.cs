@@ -11,8 +11,10 @@ public sealed record StockBajoMinimoEvent(
     decimal StockMinimo
 ) : IDomainEvent
 {
-    public Guid EventId { get; } = Guid.NewGuid();
-    public DateTime OcurridoEn { get; } = DateTime.UtcNow;
+    // init (no solo get): ver el comentario en MaterialRegistradoEvent — necesario para que el
+    // patrón Outbox reconstruya el evento exacto desde su JSON persistido.
+    public Guid EventId { get; init; } = Guid.NewGuid();
+    public DateTime OcurridoEn { get; init; } = DateTime.UtcNow;
 
     /// <summary>Cantidad de unidades que faltan para alcanzar el mínimo.</summary>
     public decimal Deficit { get; } = StockMinimo - StockActual;

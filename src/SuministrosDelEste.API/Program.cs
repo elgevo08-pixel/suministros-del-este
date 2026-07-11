@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using SuministrosDelEste.Application.Factories;
 using SuministrosDelEste.Application.Ports;
 using SuministrosDelEste.Application.Strategies;
+using SuministrosDelEste.Application.UseCases.CalcularDescuento;
 using SuministrosDelEste.Application.UseCases.ConsultarInventario;
 using SuministrosDelEste.Application.UseCases.RegistrarMaterial;
 using SuministrosDelEste.Infrastructure.DependencyInjection;
@@ -22,6 +23,13 @@ builder.Services.AddScoped<IMaterialFactory, MaterialFactory>();
 builder.Services.AddScoped<IStockAlertStrategy, StockMinimoAlertStrategy>();
 builder.Services.AddScoped<IRegistrarMaterialUseCase, RegistrarMaterialHandler>();
 builder.Services.AddScoped<IConsultarInventarioUseCase, ConsultarInventarioHandler>();
+
+// Descuentos (Tarea 4 — SOLID): 3 estrategias intercambiables (OCP).
+// Agregar un tipo de cliente nuevo = una línea más aquí, ninguna de las anteriores cambia.
+builder.Services.AddScoped<IDescuentoStrategy, DescuentoPremiumStrategy>();
+builder.Services.AddScoped<IDescuentoStrategy, DescuentoFrecuenteStrategy>();
+builder.Services.AddScoped<IDescuentoStrategy, DescuentoPorVolumenStrategy>();
+builder.Services.AddScoped<ICalcularDescuentoUseCase, CalcularDescuentoHandler>();
 
 // ============================================================
 // CAPA DE PRESENTACIÓN — Adaptadores primarios (REST)

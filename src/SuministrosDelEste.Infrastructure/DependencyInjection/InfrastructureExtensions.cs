@@ -2,8 +2,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using SuministrosDelEste.Application.Ports;
 using SuministrosDelEste.Domain.Ports;
+using SuministrosDelEste.Infrastructure.BackgroundServices;
 using SuministrosDelEste.Infrastructure.Events;
 using SuministrosDelEste.Infrastructure.Persistence.Context;
 using SuministrosDelEste.Infrastructure.Persistence.Repositories;
@@ -51,6 +53,11 @@ public static class InfrastructureExtensions
 
         // Event Publisher — implementa el puerto de aplicación IEventPublisher
         services.AddScoped<IEventPublisher, InMemoryEventPublisher>();
+
+        // Patrón Outbox: despacha en segundo plano los OutboxMessage pendientes hacia IEventPublisher.
+        // La durabilidad ya la garantiza AppDbContext.SaveChangesAsync (ver Persistence/Context);
+        // este servicio solo se encarga de la entrega asíncrona, fuera del ciclo de la petición HTTP.
+        services.AddHostedService<OutboxDispatcherService>();
 
         // Autenticación JWT / OAuth2 / Keycloak
         services.AddKeycloakAuthentication(configuration);

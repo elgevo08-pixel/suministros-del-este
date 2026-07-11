@@ -92,6 +92,26 @@ dotnet run --project src/SuministrosDelEste.API
 | `GET` | `/api/v1/materiales` | Autenticado | Catálogo de materiales |
 | `GET` | `/api/v1/materiales/alertas` | Autenticado | Alertas de reabastecimiento |
 | `POST` | `/api/v1/materiales` | `inventario-admin` | Registrar material |
+| `POST` | `/api/v1/descuentos/calcular` | Autenticado | Calcular descuento (Strategy) |
+
+## 🎓 Tarea 4 — SOLID + UI/UX (Ingeniería de Software 2)
+
+**Backend (Tema 1 — SOLID):** función nueva de cálculo de descuentos, construida a propósito
+con los 5 olores de código y refactorizada con SOLID. El "antes" (God Class con SRP/OCP/ISP/DIP
+violados + subclase con LSP violado) vive en `docs/solid-antes-despues/antes/`, fuera de la
+compilación. El "después" es código real e integrado:
+- `src/SuministrosDelEste.Application/Strategies/IDescuentoStrategy.cs` + 3 estrategias (OCP, ISP, LSP)
+- `src/SuministrosDelEste.Application/UseCases/CalcularDescuento/` (SRP, DIP)
+- `src/SuministrosDelEste.Domain/Events/DescuentoAplicadoEvent.cs` — reutiliza `IEventPublisher`
+- `src/SuministrosDelEste.API/Controllers/DescuentosController.cs`
+
+**Frontend (Tema 2 — UI/UX):** `frontend/dashboard-v1.html` (antes) vs. `frontend/dashboard-v2.html`
+(después), con 8 técnicas profesionales — 2 por encima del mínimo de 6:
+Wizard por pasos · Modales · Menú superior (MenuStrip) · Ocultación por rol · Sidebar colapsable ·
+Paleta documentada · DataGrid con orden/paginación · Estados de carga + toasts.
+
+Evidencia completa (antes/después con capturas y justificación) en el documento técnico entregado
+junto a esta tarea.
 
 ## 🧪 Tests de Arquitectura
 
