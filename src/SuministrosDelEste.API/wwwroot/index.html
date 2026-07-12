@@ -10,17 +10,18 @@
        Primario   #1F3A5F (navy)     — marca, cabecera, navegación activa
        Secundario #2E5C8A (blue)     — enlaces, acentos secundarios
        Acento     #E07B27 (amber)    — tema "obra en construcción", CTAs primarios
+       Ayuda      #1D8A7A (help)     — recorrido guiado, tooltips, todo lo orientado a enseñar
        Éxito      #2E7D52 (ok)       — confirmaciones, estado OK
        Advertencia#C9A227 (gold)     — estado Premium / atención media
        Error      #C0392B (crit)     — errores, estado crítico, acciones destructivas
        Fondo      #ECEFF3 (paper)    — lienzo de la app, baja fatiga visual
-       Texto      #13202E (txt)      — máximo contraste sobre fondos claros
+       Texto      #1B2A3A (txt)      — alto contraste sin ser negro puro (más cálido)
        Contraste verificado: texto sobre --navy y --amber-d ≥ 4.6:1 (AA) */
     --ink:#0E1B2A; --navy:#1F3A5F; --blue:#2E5C8A; --steel:#5B6B7B;
     --paper:#ECEFF3; --card:#FFFFFF; --line:#D8E0E8; --line2:#E8EDF2;
-    --amber:#E07B27; --amber-d:#C55A11;
+    --amber:#E07B27; --amber-d:#C55A11; --help:#1D8A7A; --help-bg:#E4F5F2;
     --crit:#C0392B; --agot:#7A1E14; --ok:#2E7D52; --okbg:#E5F2EA;
-    --txt:#13202E; --mut:#62717F; --gold:#C9A227;
+    --txt:#1B2A3A; --mut:#62717F; --gold:#C9A227;
     --tag-factory:#3F7CC0; --tag-strategy:#E07B27; --tag-observer:#8E6FCF;
     --shadow:0 1px 2px rgba(16,27,42,.06),0 8px 24px rgba(16,27,42,.06);
     --shadow-lg:0 12px 32px rgba(16,27,42,.18), 0 2px 8px rgba(16,27,42,.10);
@@ -231,6 +232,57 @@
   .swatch .meta code{font-size:10px;color:var(--mut);}
   .role-note{display:flex;gap:9px;align-items:flex-start;background:#FFF6EE;border:1px solid #F3D9B8;border-radius:9px;padding:11px 12px;font-size:12px;color:#7A4A17;margin-bottom:14px;}
 
+  /* ============ LOGIN SCREEN ============ */
+  .login-screen{position:fixed;inset:0;z-index:500;display:flex;align-items:center;justify-content:center;
+    background:radial-gradient(1200px 600px at 20% 10%, #234874 0%, var(--navy) 45%, var(--ink) 100%);}
+  .login-screen.hidden{display:none;}
+  .login-card{width:100%;max-width:380px;background:#fff;border-radius:16px;box-shadow:var(--shadow-lg);padding:30px 28px 26px;margin:16px;}
+  .login-brand{display:flex;align-items:center;gap:11px;margin-bottom:22px;}
+  .login-brand .mark{width:40px;height:40px;border-radius:10px;background:var(--amber);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:16px;flex-shrink:0;}
+  .login-brand div b{display:block;font-size:15px;color:var(--navy);}
+  .login-brand div span{font-size:10.5px;color:var(--mut);letter-spacing:.3px;}
+  .login-card h2{font-size:15px;margin:0 0 4px;color:var(--txt);}
+  .login-card p.sub{margin:0 0 20px;font-size:12px;color:var(--mut);}
+  .login-field{margin-bottom:14px;}
+  .login-field label{display:block;font-size:11.5px;font-weight:700;color:var(--steel);margin-bottom:5px;}
+  .login-field input{width:100%;border:1px solid var(--line);border-radius:9px;padding:10px 12px;font-size:13.5px;color:var(--txt);}
+  .login-field input:focus{border-color:var(--blue);}
+  .login-err{background:#FBE7E4;color:var(--crit);font-size:12px;font-weight:600;border-radius:8px;padding:9px 11px;margin-bottom:14px;display:none;}
+  .login-err.show{display:block;}
+  .login-card button{width:100%;justify-content:center;padding:11px;font-size:13px;}
+  .login-hint{margin-top:18px;padding-top:16px;border-top:1px solid var(--line2);}
+  .login-hint b{display:block;font-size:10.5px;color:var(--steel);text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px;}
+  .login-hint .cred-row{display:flex;justify-content:space-between;font-size:11.5px;padding:4px 0;color:var(--mut);}
+  .login-hint .cred-row b{display:inline;text-transform:none;color:var(--txt);font-weight:700;}
+
+  /* ============ AYUDA / TOUR GUIADO ============ */
+  .help-btn{width:34px;height:34px;border-radius:50%;background:var(--help);color:#fff;border:none;font-weight:800;font-size:14px;flex-shrink:0;}
+  .help-btn:hover{filter:brightness(1.1);}
+  .tour-highlight{position:relative;z-index:401;border-radius:10px;box-shadow:0 0 0 4px var(--help), 0 0 0 9999px rgba(10,17,28,.62);transition:box-shadow .15s;}
+  .tour-card{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);z-index:402;background:#fff;border-radius:14px;box-shadow:var(--shadow-lg);
+    width:100%;max-width:360px;padding:18px 20px;border-top:4px solid var(--help);}
+  .tour-card .tour-tag{display:inline-flex;align-items:center;gap:5px;background:var(--help-bg);color:var(--help);font-size:10.5px;font-weight:800;
+    text-transform:uppercase;letter-spacing:.4px;padding:3px 9px;border-radius:20px;margin-bottom:10px;}
+  .tour-card h3{margin:0 0 6px;font-size:14.5px;color:var(--txt);}
+  .tour-card p{margin:0 0 16px;font-size:12.5px;color:var(--mut);line-height:1.55;}
+  .tour-foot{display:flex;align-items:center;justify-content:space-between;}
+  .tour-dots{display:flex;gap:5px;}
+  .tour-dots span{width:6px;height:6px;border-radius:50%;background:var(--line);}
+  .tour-dots span.active{background:var(--help);width:16px;border-radius:4px;}
+  .tour-actions{display:flex;gap:8px;}
+  .tour-actions button{border:none;border-radius:8px;padding:7px 13px;font-size:12px;font-weight:700;}
+  .tour-skip{background:transparent;color:var(--mut);}
+  .tour-next{background:var(--help);color:#fff;}
+  .tour-back{background:var(--paper);color:var(--navy);}
+
+  /* ============ GUÍA RÁPIDA (Configuración) ============ */
+  .faq{border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:9px;}
+  .faq summary{padding:12px 14px;font-weight:700;font-size:12.5px;color:var(--txt);cursor:pointer;list-style:none;display:flex;align-items:center;gap:9px;background:#FAFBFC;}
+  .faq summary::before{content:"💬";font-size:13px;}
+  .faq summary::-webkit-details-marker{display:none;}
+  .faq[open] summary{border-bottom:1px solid var(--line);}
+  .faq .faq-body{padding:11px 14px;font-size:12px;color:var(--mut);line-height:1.6;}
+
   /* ============ RESPONSIVE (móvil) ============ */
   .hamburger{display:none;background:rgba(255,255,255,.10);border:none;color:#fff;width:34px;height:34px;border-radius:8px;font-size:16px;flex-shrink:0;}
   .sidebar-backdrop{display:none;}
@@ -268,6 +320,35 @@
 </head>
 <body>
 
+<div class="login-screen" id="loginScreen">
+  <div class="login-card">
+    <div class="login-brand">
+      <div class="mark">SE</div>
+      <div><b>Suministros del Este</b><span>GESTIÓN INTEGRAL · MATERIALES DE CONSTRUCCIÓN</span></div>
+    </div>
+    <h2>Iniciar sesión</h2>
+    <p class="sub">Ingresa tus credenciales para acceder al sistema.</p>
+    <div class="login-err" id="loginErr">Usuario o contraseña incorrectos.</div>
+    <form id="loginForm">
+      <div class="login-field">
+        <label>Usuario</label>
+        <input id="loginUser" autocomplete="username" placeholder="admin" autofocus>
+      </div>
+      <div class="login-field">
+        <label>Contraseña</label>
+        <input id="loginPass" type="password" autocomplete="current-password" placeholder="••••••••">
+      </div>
+      <button type="submit" class="btn btn-amber">Iniciar sesión</button>
+    </form>
+    <div class="login-hint">
+      <b>Credenciales de la demo</b>
+      <div class="cred-row"><span>Administrador</span><b>admin / admin123</b></div>
+      <div class="cred-row"><span>Cajero</span><b>cajero / cajero123</b></div>
+      <div class="cred-row"><span>Supervisor</span><b>supervisor / supervisor123</b></div>
+    </div>
+  </div>
+</div>
+
 <div class="topbar">
   <button class="hamburger" id="btnHamburger" aria-label="Abrir menú">☰</button>
   <div class="brand"><div class="mark">SE</div><div>ERP Suministros del Este<small>GESTIÓN INTEGRAL · MATERIALES DE CONSTRUCCIÓN</small></div></div>
@@ -280,6 +361,7 @@
       <option value="supervisor">Supervisor</option>
     </select>
   </div>
+  <button class="help-btn" id="helpBtn" title="Ver recorrido guiado">?</button>
   <div class="auth-chip" id="authChip"><span class="dot"></span><span id="authLabel">Sin autenticar</span></div>
   <button class="btn btn-amber" id="btnAuth"><span id="authBtnLabel">Conectar (Keycloak)</span></button>
 </div>
@@ -416,6 +498,14 @@
       </div>
     </div>
 
+    <!-- ===================== VISTA: AYUDA (todos los roles) ===================== -->
+    <div class="view" id="view-ayuda">
+      <div class="panel">
+        <div class="panel-head"><h2>💡 Guía rápida</h2><span class="hint">explicado en simple, sin jerga técnica</span></div>
+        <div class="panel-body" id="faqBody"></div>
+      </div>
+    </div>
+
     <!-- ===================== VISTA: CONFIGURACIÓN ===================== -->
     <div class="view" id="view-config">
       <div class="panel">
@@ -482,6 +572,20 @@
 
 <div class="toasts" id="toasts"></div>
 
+<div class="tour-card" id="tourCard" style="display:none">
+  <div class="tour-tag">💡 Recorrido guiado</div>
+  <h3 id="tourTitle"></h3>
+  <p id="tourText"></p>
+  <div class="tour-foot">
+    <div class="tour-dots" id="tourDots"></div>
+    <div class="tour-actions">
+      <button class="tour-skip" id="tourSkip">Saltar</button>
+      <button class="tour-back" id="tourBack">Atrás</button>
+      <button class="tour-next" id="tourNext">Siguiente</button>
+    </div>
+  </div>
+</div>
+
 <script>
 /* ================= ESTADO ================= */
 let materiales = [
@@ -503,14 +607,15 @@ let page = 0; const PAGE_SIZE = 5;
 let currentEditId = null;
 
 const ROLES = {
-  admin:      {label:"Administrador", puede:["inventario","ventas","reportes","config"], puedeEscribir:true},
-  cajero:     {label:"Cajero",        puede:["inventario","ventas"],                      puedeEscribir:false},
-  supervisor: {label:"Supervisor",    puede:["inventario","ventas","reportes"],            puedeEscribir:false},
+  admin:      {label:"Administrador", puede:["inventario","ventas","reportes","ayuda","config"], puedeEscribir:true},
+  cajero:     {label:"Cajero",        puede:["inventario","ventas","ayuda"],                      puedeEscribir:false},
+  supervisor: {label:"Supervisor",    puede:["inventario","ventas","reportes","ayuda"],            puedeEscribir:false},
 };
 const NAV = [
   {id:"inventario", ic:"📦", label:"Inventario"},
   {id:"ventas",      ic:"🛒", label:"Ventas"},
   {id:"reportes",    ic:"📊", label:"Reportes"},
+  {id:"ayuda",       ic:"💡", label:"Ayuda"},
   {id:"config",      ic:"⚙️", label:"Configuración"},
 ];
 const MENU = [
@@ -565,21 +670,56 @@ async function withLoading(btn, labelDuring, fn){
 }
 
 /* ================= AUTH ================= */
+const LOGIN_CREDENTIALS = {
+  admin:       {pass:"admin123",       role:"admin"},
+  cajero:      {pass:"cajero123",      role:"cajero"},
+  supervisor:  {pass:"supervisor123",  role:"supervisor"},
+};
 function setAuth(v){
   authed = v;
   $("#authChip").classList.toggle("on", v);
   $("#authLabel").textContent = v ? "Autenticado · JWT" : "Sin autenticar";
   $("#authBtnLabel").textContent = v ? "Cerrar sesión" : "Conectar (Keycloak)";
   if(v){ log("AUTH","Keycloak · OAuth2 → access_token emitido, rol <b>"+ROLES[role].label+"</b>."); toast("Sesión iniciada como "+ROLES[role].label+"."); }
-  else { log("SYS","Sesión cerrada."); }
+  else {
+    log("SYS","Sesión cerrada.");
+    $("#loginScreen").classList.remove("hidden");
+    $("#loginUser").value=""; $("#loginPass").value="";
+    setTimeout(()=> $("#loginUser").focus(), 50);
+  }
   renderMenu(); renderNav();
 }
 $("#btnAuth").onclick = async ()=>{
   const willAuth = !authed;
-  await withLoading($("#btnAuth"), willAuth? "Conectando…":"Cerrando…", async ()=>{ await wait(500); });
-  setAuth(willAuth);
+  if(!willAuth){ setAuth(false); return; } // "Cerrar sesión" no necesita spinner
+  await withLoading($("#btnAuth"), "Conectando…", async ()=>{ await wait(500); });
+  setAuth(true);
 };
 $("#roleSelect").onchange = e => { role = e.target.value; renderMenu(); renderNav(); renderGrid(); toast("Rol cambiado a "+ROLES[role].label+".", "info"); if(authed) log("SYS","Rol activo: <b>"+ROLES[role].label+"</b>."); };
+
+/* ---- Pantalla de login ---- */
+$("#loginForm").onsubmit = async (e) => {
+  e.preventDefault();
+  const u = $("#loginUser").value.trim().toLowerCase();
+  const p = $("#loginPass").value;
+  const cred = LOGIN_CREDENTIALS[u];
+  const submitBtn = e.target.querySelector("button[type=submit]");
+
+  if(!cred || cred.pass !== p){
+    $("#loginErr").classList.add("show");
+    return;
+  }
+  $("#loginErr").classList.remove("show");
+  await withLoading(submitBtn, "Verificando…", async ()=>{ await wait(500); });
+
+  role = cred.role;
+  $("#roleSelect").value = role;
+  $("#loginScreen").classList.add("hidden");
+  setAuth(true);
+  renderGrid();
+  if(!tourShownOnce){ tourShownOnce = true; setTimeout(()=> tourShow(0), 400); }
+};
+let tourShownOnce = false;
 
 /* ================= SIDEBAR / NAV ================= */
 let activeView = "inventario";
@@ -922,11 +1062,59 @@ $$("#codeTabs button").forEach(b=> b.onclick = ()=> setCodeTab(b.dataset.c));
 /* ================= STYLE GUIDE ================= */
 const PALETTE = [
   {n:"Navy — Primario", h:"#1F3A5F"}, {n:"Blue — Secundario", h:"#2E5C8A"},
-  {n:"Amber — Acento", h:"#E07B27"}, {n:"Éxito", h:"#2E7D52"},
-  {n:"Advertencia / Premium", h:"#C9A227"}, {n:"Error / Crítico", h:"#C0392B"},
-  {n:"Agotado", h:"#7A1E14"}, {n:"Texto", h:"#13202E"},
+  {n:"Amber — Acento", h:"#E07B27"}, {n:"Ayuda / Guía", h:"#1D8A7A"},
+  {n:"Éxito", h:"#2E7D52"}, {n:"Advertencia / Premium", h:"#C9A227"},
+  {n:"Error / Crítico", h:"#C0392B"}, {n:"Agotado", h:"#7A1E14"},
+  {n:"Texto", h:"#1B2A3A"},
 ];
 $("#swatches").innerHTML = PALETTE.map(p=>`<div class="swatch"><div class="fill" style="background:${p.h}"></div><div class="meta"><b>${p.n}</b><code>${p.h}</code></div></div>`).join("");
+
+/* ================= GUÍA RÁPIDA (FAQ en lenguaje simple) ================= */
+const FAQ = [
+  {q:"¿Qué significan los colores en la columna Estado?", a:"Verde (OK) = hay suficiente stock. Naranja (CRÍTICO) = queda poco, es hora de pedir más. Rojo (AGOTADO) = no queda nada de ese material."},
+  {q:"¿Cómo registro un material nuevo?", a:"Ve a Inventario y pulsa el botón naranja \"Registrar material\". Llena el nombre, cuánto hay, el mínimo antes de alertar, y el precio. Solo el Administrador puede hacer esto."},
+  {q:"¿Cómo hago una venta?", a:"Ve a Ventas en el menú lateral. Es un asistente de 3 pasos: eliges el tipo de cliente, el producto y la cantidad, y al final ves el total con el descuento ya aplicado."},
+  {q:"¿Qué es un \"rol\" y por qué cambia lo que veo?", a:"Cada persona que usa el sistema tiene un rol (Administrador, Cajero o Supervisor). Cada rol ve y puede hacer solo lo que necesita para su trabajo — así se evitan errores."},
+  {q:"¿Por qué algunos botones se ven apagados / no dejan hacer clic?", a:"Es intencional: significa que tu rol actual no tiene permiso para esa acción. Pasa el mouse encima y te explica por qué."},
+  {q:"¿Dónde veo qué materiales necesitan reabastecerse?", a:"En la pestaña Alertas del Inventario, o mirando las tarjetas de arriba (\"En nivel crítico\" y \"Agotados\") — ahí siempre está el resumen."},
+];
+$("#faqBody").innerHTML = FAQ.map((f,i)=>`
+  <details class="faq" ${i===0?"open":""}>
+    <summary>${f.q}</summary>
+    <div class="faq-body">${f.a}</div>
+  </details>`).join("");
+
+/* ================= RECORRIDO GUIADO (TOUR) ================= */
+const TOUR_STEPS = [
+  {target:null,  title:"¡Bienvenido a Suministros del Este! 👋", text:"Nunca has usado un sistema como este? No hay problema — en 6 pasos cortos te mostramos lo esencial. Puedes saltarlo cuando quieras."},
+  {target:"#sidebar", view:"inventario", title:"Tu menú principal", text:"Desde aquí te mueves entre Inventario, Ventas, Reportes y Configuración. Puedes achicarlo con el botón de arriba si necesitas más espacio."},
+  {target:"#searchInv", view:"inventario", title:"Buscar un material", text:"Escribe cualquier parte del nombre — por ejemplo \"cemento\" — y la lista se filtra al instante."},
+  {target:"#gridInv", view:"inventario", title:"Así se ve el inventario", text:"Verde = todo bien. Naranja = queda poco (crítico). Rojo = no hay nada (agotado). Haz clic en cualquier fila para ver o editar ese material."},
+  {target:"#btnNuevoMat", view:"inventario", title:"Agregar algo nuevo", text:"Este botón abre un formulario simple: nombre, cantidad, mínimo y precio. El sistema revisa que los datos tengan sentido antes de guardar."},
+  {target:"#helpBtn", view:"inventario", title:"¿Te perdiste? Vuelve a empezar aquí", text:"Haz clic en este botón de interrogación cuando quieras repetir este recorrido — no importa en qué pantalla estés."},
+];
+let tourStep = 0;
+function tourShow(i){
+  tourStep = i;
+  const s = TOUR_STEPS[i];
+  if(s.view) goto(s.view);
+  $$(".tour-highlight").forEach(el=> el.classList.remove("tour-highlight"));
+  if(s.target){ const el=document.querySelector(s.target); if(el) el.classList.add("tour-highlight"); }
+  $("#tourTitle").textContent = s.title;
+  $("#tourText").textContent = s.text;
+  $("#tourDots").innerHTML = TOUR_STEPS.map((_,k)=>`<span class="${k===i?'active':''}"></span>`).join("");
+  $("#tourBack").style.visibility = i===0 ? "hidden" : "visible";
+  $("#tourNext").textContent = i===TOUR_STEPS.length-1 ? "Entendido ✓" : "Siguiente";
+  $("#tourCard").style.display = "block";
+}
+function tourEnd(){
+  $$(".tour-highlight").forEach(el=> el.classList.remove("tour-highlight"));
+  $("#tourCard").style.display = "none";
+}
+$("#tourNext").onclick = ()=>{ if(tourStep>=TOUR_STEPS.length-1){ tourEnd(); toast("¡Listo! Ya conoces lo básico."); } else tourShow(tourStep+1); };
+$("#tourBack").onclick = ()=>{ if(tourStep>0) tourShow(tourStep-1); };
+$("#tourSkip").onclick = tourEnd;
+$("#helpBtn").onclick = ()=> tourShow(0);
 
 /* ================= INIT ================= */
 function render(){ renderGrid(); }
