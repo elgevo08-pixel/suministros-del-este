@@ -233,10 +233,16 @@
   .role-note{display:flex;gap:9px;align-items:flex-start;background:#FFF6EE;border:1px solid #F3D9B8;border-radius:9px;padding:11px 12px;font-size:12px;color:#7A4A17;margin-bottom:14px;}
 
   /* ============ LOGIN SCREEN ============ */
-  .login-screen{position:fixed;inset:0;z-index:500;display:flex;align-items:center;justify-content:center;
-    background:radial-gradient(1200px 600px at 20% 10%, #234874 0%, var(--navy) 45%, var(--ink) 100%);}
+  .login-screen{position:fixed;inset:0;z-index:500;display:flex;align-items:center;justify-content:center;overflow:hidden;
+    background:
+      radial-gradient(1200px 600px at 20% 10%, #234874 0%, var(--navy) 45%, var(--ink) 100%);}
   .login-screen.hidden{display:none;}
-  .login-card{width:100%;max-width:380px;background:#fff;border-radius:16px;box-shadow:var(--shadow-lg);padding:30px 28px 26px;margin:16px;}
+  .login-grid{position:absolute;inset:0;z-index:0;opacity:.5;pointer-events:none;
+    background:
+      linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px) 0 0/40px 40px,
+      linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px) 0 0/40px 40px;}
+  .login-art{position:absolute;left:0;right:0;bottom:0;width:100%;height:46%;z-index:0;opacity:.55;pointer-events:none;}
+  .login-card{width:100%;max-width:380px;background:#fff;border-radius:16px;box-shadow:var(--shadow-lg);padding:30px 28px 26px;margin:16px;position:relative;z-index:1;}
   .login-brand{display:flex;align-items:center;gap:11px;margin-bottom:22px;}
   .login-brand .mark{width:40px;height:40px;border-radius:10px;background:var(--amber);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:16px;flex-shrink:0;}
   .login-brand div b{display:block;font-size:15px;color:var(--navy);}
@@ -250,10 +256,6 @@
   .login-err{background:#FBE7E4;color:var(--crit);font-size:12px;font-weight:600;border-radius:8px;padding:9px 11px;margin-bottom:14px;display:none;}
   .login-err.show{display:block;}
   .login-card button{width:100%;justify-content:center;padding:11px;font-size:13px;}
-  .login-hint{margin-top:18px;padding-top:16px;border-top:1px solid var(--line2);}
-  .login-hint b{display:block;font-size:10.5px;color:var(--steel);text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px;}
-  .login-hint .cred-row{display:flex;justify-content:space-between;font-size:11.5px;padding:4px 0;color:var(--mut);}
-  .login-hint .cred-row b{display:inline;text-transform:none;color:var(--txt);font-weight:700;}
 
   /* ============ AYUDA / TOUR GUIADO ============ */
   .help-btn{width:34px;height:34px;border-radius:50%;background:var(--help);color:#fff;border:none;font-weight:800;font-size:14px;flex-shrink:0;}
@@ -321,6 +323,56 @@
 <body>
 
 <div class="login-screen" id="loginScreen">
+  <div class="login-grid"></div>
+  <svg class="login-art" viewBox="0 0 1440 380" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+    <!-- línea de base -->
+    <rect x="0" y="356" width="1440" height="24" fill="#0E1B2A" opacity=".55"/>
+
+    <!-- almacén, izquierda -->
+    <g fill="#E07B27" opacity=".85">
+      <rect x="70" y="230" width="220" height="126" />
+      <polygon points="70,230 180,168 290,230" />
+      <rect x="150" y="290" width="60" height="66" fill="#0E1B2A" opacity=".5"/>
+    </g>
+
+    <!-- pila de bloques -->
+    <g fill="#9FB6D1" opacity=".9">
+      <rect x="340" y="308" width="52" height="48"/>
+      <rect x="398" y="308" width="52" height="48"/>
+      <rect x="456" y="308" width="52" height="48"/>
+      <rect x="369" y="256" width="52" height="48"/>
+      <rect x="427" y="256" width="52" height="48"/>
+      <rect x="398" y="204" width="52" height="48"/>
+    </g>
+
+    <!-- grúa, centro -->
+    <g stroke="#E07B27" stroke-width="6" fill="none" opacity=".85" stroke-linecap="round">
+      <line x1="640" y1="356" x2="640" y2="120"/>
+      <line x1="640" y1="120" x2="900" y2="120"/>
+      <line x1="640" y1="120" x2="560" y2="170"/>
+      <line x1="640" y1="160" x2="700" y2="120"/>
+      <line x1="860" y1="120" x2="860" y2="200"/>
+    </g>
+    <rect x="610" y="110" width="60" height="26" rx="4" fill="#E07B27" opacity=".85"/>
+
+    <!-- tubería apilada -->
+    <g fill="#9FB6D1" opacity=".9">
+      <circle cx="990" cy="332" r="26"/>
+      <circle cx="1044" cy="332" r="26"/>
+      <circle cx="1098" cy="332" r="26"/>
+      <circle cx="1017" cy="288" r="26"/>
+      <circle cx="1071" cy="288" r="26"/>
+      <circle cx="1044" cy="246" r="26"/>
+    </g>
+
+    <!-- camión, derecha -->
+    <g opacity=".85">
+      <rect x="1180" y="270" width="150" height="66" fill="#E07B27"/>
+      <rect x="1330" y="292" width="50" height="44" fill="#E07B27"/>
+      <circle cx="1220" cy="342" r="16" fill="#0E1B2A"/>
+      <circle cx="1350" cy="342" r="16" fill="#0E1B2A"/>
+    </g>
+  </svg>
   <div class="login-card">
     <div class="login-brand">
       <div class="mark">SE</div>
@@ -340,12 +392,6 @@
       </div>
       <button type="submit" class="btn btn-amber">Iniciar sesión</button>
     </form>
-    <div class="login-hint">
-      <b>Credenciales de la demo</b>
-      <div class="cred-row"><span>Administrador</span><b>admin / admin123</b></div>
-      <div class="cred-row"><span>Cajero</span><b>cajero / cajero123</b></div>
-      <div class="cred-row"><span>Supervisor</span><b>supervisor / supervisor123</b></div>
-    </div>
   </div>
 </div>
 
